@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta last_name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="incrementClicks">Click me: {{ clicks }}</button>
+        <br>
+        <h1>Hello {{ name }}</h1>
+        <p>Hello {{ last_name }}</p>
+        <fieldset>
+            <legend>Datos personales</legend>
+            <input v-model="name">
+            <input v-model="last_name">
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Calculadora</legend>
+            <div>
+                <input v-model="num1" type="number">
+                <input v-model="num2" type="number">
+                <button @click="sumNumbers">Sum</button>
+                <p>{{ result }}</p>
+            </div>
+        </fieldset>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const clicks = ref(0);
+                const name = ref('');
+                const last_name = ref('');
+                const num1 = ref(0);
+                const num2 = ref(0);
+                const result = ref(0);
+
+                const incrementClicks = () => {
+                    clicks.value++;
+                };
+
+                const sumNumbers = () => {
+                    result.value = num1.value + num2.value;
+                };
+
+                return {
+                    clicks,
+                    name,
+                    last_name,
+                    num1,
+                    num2,
+                    result,
+                    incrementClicks,
+                    sumNumbers
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

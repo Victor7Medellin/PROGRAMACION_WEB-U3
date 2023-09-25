@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Act 12</title>
+
+    <style>
+        p {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form @submit.prevent="login" v-if="!isLoggedIn"> <!-- Mostrar el formulario solo si no ha iniciado sesión -->
+            <fieldset>
+                <legend>Email</legend>
+                <input type="text" v-model="email" placeholder="Email">
+            </fieldset>
+
+            <fieldset>
+                <legend>Password</legend>
+                <input type="password" v-model="password" placeholder="Password">
+            </fieldset>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <p v-if="loginError" style="color: red;">Credenciales incorrectas. Intente nuevamente.</p>
+        <p v-if="isLoggedIn" style="color: green;">¡Inicio de sesión exitoso!</p>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    email: '',
+                    password: '',
+                    loginError: false,
+                    isLoggedIn: false,
+                    users: [
+                        { email: 'usuario1@gmail.com', password: 'pass1' },
+                        { email: 'usuario2@gmail.com', password: 'pass2' },
+                    ],
+                };
+            },
+            methods: {
+                login() {
+                    const user = this.users.find(u => u.email === this.email && u.password === this.password);
+
+                    if (user) {
+                        this.isLoggedIn = true;
+                        this.loginError = false;
+                    } else {
+                        this.isLoggedIn = false;
+                        this.loginError = true;
+                    }
+
+                    this.email = '';
+                    this.password = '';
+                },
+            },
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

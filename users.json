@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Jesus Mayoral Romero",
+    "Email": "correprueba1@gmail.com",
+    "password": "1234",
+    "address": "Camino real, 23900",
+    "company": "Bodega Aurrera"
+  },
+  {
+    "name": "María López García",
+    "Email": "maria.lopez@gmail.com",
+    "password": "1234",
+    "address": "Calle Principal, 123",
+    "company": "Supermercado Mega"
+  },
+  {
+    "name": "Pedro Rodríguez Pérez",
+    "Email": "pedro.rodriguez@gmail.com",
+    "password": "1234",
+    "address": "Avenida Central, 5678",
+    "company": "Tienda Express"
+  },
+  {
+    "name": "Ana Sánchez Martínez",
+    "Email": "ana.sanchez@gmail.com",
+    "password": "1234",
+    "address": "Calle Mayor, 456",
+    "company": "Tienda de Comestibles Súper"
+  },
+  {
+    "name": "Luis García González",
+    "Email": "luis.garcia@gmail.com",
+    "password": "1234",
+    "address": "Avenida Principal, 987",
+    "company": "Mini Market"
+  },
+  {
+    "name": "Laura Pérez Rodríguez",
+    "Email": "laura.perez@gmail.com",
+    "password": "1234",
+    "address": "Calle Secundaria, 321",
+    "company": "Supermercado Rápido"
+  }
+]

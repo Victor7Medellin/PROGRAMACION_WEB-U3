@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+</style>
+
+<body>
+    <form id="login">
+        <fieldset>
+            <legend>Email:</legend>
+            <input type="text" id="Email" name="Email" required>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Password:</legend>
+            <input type="password" id="password" name="password" required>
+        </fieldset>
+        <br>
+        <button type="submit">Access</button>
+    </form>
+
+    <div id="tableContainer" style="display: none;">
+        <h2 id="userName"></h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Personal data</th>
+                    <th>Contact data</th>
+                    <th>Address</th>
+                    <th>Company</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const response = await fetch('users.json');
+            const users = await response.json();
+
+            const EmailInput = document.getElementById('Email');
+            const passwordInput = document.getElementById('password');
+
+            const Email = EmailInput.value;
+            const password = passwordInput.value;
+
+            const user = users.find((user) => user.Email === Email && user.password === password);
+
+            if (user) {
+                alert('Inicio de sesión exitoso');
+                
+                document.getElementById('login').style.display = 'none';
+
+                const userName = document.getElementById('userName');
+                userName.textContent = `Bienvenido, ${user.name}`;
+
+                const tableContainer = document.getElementById('tableContainer');
+                const userTableBody = document.getElementById('userTableBody');
+
+                userTableBody.innerHTML = ''; 
+
+                users.forEach((userData) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${userData.name}</td>
+                        <td>${userData.Email}</td>
+                        <td>${userData.address}</td>
+                        <td>${userData.company}</td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+
+                tableContainer.style.display = 'block';
+            } else {
+                alert('Nombre de usuario o contraseña incorrectos');
+            }
+            EmailInput.value = '';
+            passwordInput.value = '';
+        });
+    </script>
+</body>
+
+</html>

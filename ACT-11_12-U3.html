@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <form id="login">
+        <fieldset>
+            <legend>Email:</legend>
+            <input type="text" id="Email" name="Email" required>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Password:</legend>
+            <input type="password" id="password" name="password" required>
+        </fieldset>
+        <br>
+        <button type="submit">Access</button>
+    </form>
+
+    <script>
+        document.getElementById('login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const response = await fetch('users.json');
+            const users = await response.json();
+
+            const EmailInput = document.getElementById('Email');
+            const passwordInput = document.getElementById('password');
+
+            const Email = EmailInput.value;
+            const password = passwordInput.value;
+
+            const user = users.find((user) => user.Email === Email && user.password === password);
+
+            if (user) {
+                alert('Inicio de sesión exitoso');
+            } else {
+                alert('Nombre de usuario o contraseña incorrectos');
+            }
+            EmailInput.value = '';
+            passwordInput.value = '';
+        });
+    </script>
+</body>
+
+</html>
