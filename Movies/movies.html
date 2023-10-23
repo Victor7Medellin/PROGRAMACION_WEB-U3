@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/movies.css">
+  <title>Movies</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="main">
+      <h1>Movie Cards</h1>
+      <ul class="cards">
+        <li class="cards_item" v-for="movie in movies" :key="movie.id">
+          <div class="card">
+            <div class="card_image">
+              <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster">
+            </div>
+            <div class="card_content">
+              <h2 class="card_title">{{ movie.title }}</h2>
+              <button class="btn card_btn">More Details</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        movies: [],
+      },
+      methods: {
+        getImageUrl(posterPath) {
+          return `https://image.tmdb.org/t/p/w500/${posterPath}`;
+        },
+        fetchMovies() {
+          const myHeaders = new Headers();
+          myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NTQzMDQ0MTMxNTkyYzIzODExZjQxOGNmYzJlMjMxNyIsInN1YiI6IjY1MTRiOTA0Y2FkYjZiMDJjMDUxN2U4OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OCGB4IYL_Y-9abC7XTgCqzYrCT5hSm7gVQi-4WMiF00");
+
+          const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+          };
+
+          fetch("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc", requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              this.movies = data.results;
+            })
+            .catch(error => {
+              console.log('error', error);
+            });
+        },
+      },
+      mounted() {
+        this.fetchMovies();
+      }
+    });
+  </script>
+</body>
+
+</html>
